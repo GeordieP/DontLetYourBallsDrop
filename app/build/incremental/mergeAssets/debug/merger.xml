@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="C:\Users\Geordie\AndroidStudioProjects\KeepUp\app\src\main\assets" >
+            <file
+                name="confetti1.png"
+                path="C:\Users\Geordie\AndroidStudioProjects\KeepUp\app\src\main\assets\confetti1.png" />
+            <file
+                name="confetti2.png"
+                path="C:\Users\Geordie\AndroidStudioProjects\KeepUp\app\src\main\assets\confetti2.png" />
+            <file
+                name="confetti3.png"
+                path="C:\Users\Geordie\AndroidStudioProjects\KeepUp\app\src\main\assets\confetti3.png" />
+            <file
+                name="confetti4.png"
+                path="C:\Users\Geordie\AndroidStudioProjects\KeepUp\app\src\main\assets\confetti4.png" />
+            <file
+                name="confetti5.png"
+                path="C:\Users\Geordie\AndroidStudioProjects\KeepUp\app\src\main\assets\confetti5.png" />
+            <file
+                name="confetti6.png"
+                path="C:\Users\Geordie\AndroidStudioProjects\KeepUp\app\src\main\assets\confetti6.png" />
+            <file
+                name="horn.mp3"
+                path="C:\Users\Geordie\AndroidStudioProjects\KeepUp\app\src\main\assets\horn.mp3" />
+        </source>
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="C:\Users\Geordie\AndroidStudioProjects\KeepUp\app\src\debug\assets" />
+    </dataSet>
+
+</merger>
