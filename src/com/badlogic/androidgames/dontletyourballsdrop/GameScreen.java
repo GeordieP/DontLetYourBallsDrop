@@ -19,9 +19,19 @@ public class GameScreen extends Screen {
     }
     
     GameState state = GameState.Ready;
+    Ball ball;
+    public Rectangle ballHitRect;
     
     public GameScreen(Game game) {
         super(game);
+        // create ball, initially center horizontally, place near the top vertically
+        ball = new Ball((game.getGraphics().getWidth() / 2 - Assets.ball.getWidth() / 2), game.getGraphics().getHeight() / 4);
+        
+        ballHitRect = new Rectangle(
+        		(game.getGraphics().getWidth() / 2 - (game.getGraphics().getWidth() / 3) / 2),
+        		game.getGraphics().getHeight() - game.getGraphics().getHeight() / 4,
+        		game.getGraphics().getWidth() / 3,
+        		game.getGraphics().getWidth() / 3);
     }
 
     @Override
@@ -39,11 +49,18 @@ public class GameScreen extends Screen {
         case GameOver:
         	break;
         }
+        
+        if ((touchEvents.size() > 0) && (ballHitRect.intersects(ball.collisionRectangle))) {
+        	ball.bounce();
+        }
+        
+        ball.update(deltaTime);
     }
     
-    private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {        
-    }    
-
+    private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
+    	
+    }
+    
     @Override
     public void present(float deltaTime) {
         Graphics g = game.getGraphics();
@@ -51,6 +68,8 @@ public class GameScreen extends Screen {
         // have methods to draw GUI for each state?
         
         g.drawPixmap(Assets.background, 0, 0);
+        g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
+        ball.present(g);
     }
     
     @Override

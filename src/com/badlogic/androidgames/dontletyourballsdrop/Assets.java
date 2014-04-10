@@ -16,6 +16,7 @@ public class Assets {
     
     /* In-Game */    
     public static Pixmap background;
+    public static Pixmap ball;
     
 //    public static Pixmap logo;
 //    public static Pixmap mainMenu;

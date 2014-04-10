@@ -31,6 +31,7 @@ public class LoadingScreen extends Screen {
         
         /* In-Game */
         Assets.background = g.newPixmap("background.png", PixmapFormat.RGB565);
+        Assets.ball = g.newPixmap("ball.png",  PixmapFormat.RGB565);
         
 //        Assets.logo = g.newPixmap("logo.png", PixmapFormat.ARGB4444);
 //        Assets.mainMenu = g.newPixmap("mainmenu.png", PixmapFormat.ARGB4444);
