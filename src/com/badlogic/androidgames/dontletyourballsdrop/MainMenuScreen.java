@@ -34,11 +34,13 @@ public class MainMenuScreen extends Screen {
         	
         	// check if each button has been tapped
         	if (playBtn.checkTapped(touchPosition)) {
+        		System.out.println("Play Button Pressed!");
         		game.setScreen(new GameScreen(game));
-        	}
-//        	 else if (settingsBtn.checkTapped(touchPosition)) {
-//         	} else if (creditsBtn.checkTapped(touchPosition)) {
-//         	}
+        	} else if (settingsBtn.checkTapped(touchPosition)) {
+        		System.out.println("Settings Button Pressed!");
+         	} else if (creditsBtn.checkTapped(touchPosition)) {
+         		System.out.println("Credits Button Pressed!");
+         	}
         }
     }
     
@@ -62,15 +64,16 @@ public class MainMenuScreen extends Screen {
         
         // Draw Play Button
 //        g.drawPixmap(Assets.playBtn, (g.getWidth() / 2 - Assets.playBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 3) - Assets.playBtn.getHeight() / 2));
+        
         playBtn.present(g);
         
         // Draw Settings Button
-//        g.drawPixmap(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 5) - Assets.settingsBtn.getHeight() / 2));
-//        settingsBtn.present(g);
+     //   g.drawPixmap(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 5) - Assets.settingsBtn.getHeight() / 2));
+        settingsBtn.present(g);
         
         // Draw Credits Button
-//        g.drawPixmap(Assets.creditsBtn, (g.getWidth() / 2 - Assets.creditsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 7) - Assets.creditsBtn.getHeight() / 2));
-//        creditsBtn.present(g);
+       // g.drawPixmap(Assets.creditsBtn, (g.getWidth() / 2 - Assets.creditsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 7) - Assets.creditsBtn.getHeight() / 2));
+        creditsBtn.present(g);
     }
 
     @Override

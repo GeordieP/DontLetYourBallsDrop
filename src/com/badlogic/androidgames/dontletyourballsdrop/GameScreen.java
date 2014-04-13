@@ -38,16 +38,26 @@ public class GameScreen extends Screen {
     public void update(float deltaTime) {
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         game.getInput().getKeyEvents();
+     
         
         switch(state) {
         case Running:
+        	updateRunning(touchEvents, deltaTime);
         	break;
         case Ready:
+        	updateReady(touchEvents);
         	break;
         case Paused:
         	break;
         case GameOver:
         	break;
+        }
+        
+    }
+    
+    private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
+        if(touchEvents.size() > 0) { 
+        	Vector2 touchPosition = new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);
         }
         
         if ((touchEvents.size() > 0) && (ballHitRect.intersects(ball.collisionRectangle))) {
@@ -57,8 +67,9 @@ public class GameScreen extends Screen {
         ball.update(deltaTime);
     }
     
-    private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
-    	
+    private void updateReady(List<TouchEvent> touchEvents) {
+        if(touchEvents.size() > 0)
+            state = GameState.Running;
     }
     
     @Override
@@ -66,10 +77,20 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         
         // have methods to draw GUI for each state?
-        
-        g.drawPixmap(Assets.background, 0, 0);
-        g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
-        ball.present(g);
+        switch(state) {
+        case Running:
+            g.drawPixmap(Assets.background, 0, 0);
+            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
+            ball.present(g);
+        	break;
+        case Ready:
+        	break;
+        case Paused:
+        	break;
+        case GameOver:
+        	break;
+        }
+ 
     }
     
     @Override

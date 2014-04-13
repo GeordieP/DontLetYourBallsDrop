@@ -13,6 +13,7 @@ public class GUIButton {
 	}
 	
 	public GUIButton(Pixmap _texture, int _x, int _y) {
+		this.buttonTexture = _texture;
 		this.buttonRectangle = new Rectangle(_x, _y, _texture.getWidth(), _texture.getHeight());
 	}
 	
