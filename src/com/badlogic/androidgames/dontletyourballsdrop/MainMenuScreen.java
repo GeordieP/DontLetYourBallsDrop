@@ -10,18 +10,35 @@ import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.Screen;
 
 public class MainMenuScreen extends Screen {
+	
+	private GUIButton playBtn, settingsBtn, creditsBtn;	
+	
     public MainMenuScreen(Game game) {
-        super(game);               
+        super(game);
+        
+        Graphics g = game.getGraphics();
+        playBtn = new GUIButton(Assets.playBtn, (g.getWidth() / 2 - Assets.playBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 3) - Assets.playBtn.getHeight() / 2));
+        settingsBtn = new GUIButton(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 5) - Assets.settingsBtn.getHeight() / 2));
+        creditsBtn = new GUIButton(Assets.creditsBtn, (g.getWidth() / 2 - Assets.creditsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 7) - Assets.creditsBtn.getHeight() / 2));
     }   
 
     @Override
     public void update(float deltaTime) {
-        Graphics g = game.getGraphics();
+//        Graphics g = game.getGraphics();
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         game.getInput().getKeyEvents();
         
         if (touchEvents.size() > 0) {
-            game.setScreen(new GameScreen(game));
+//            game.setScreen(new GameScreen(game));
+        	Vector2 touchPosition = new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);
+        	
+        	// check if each button has been tapped
+        	if (playBtn.checkTapped(touchPosition)) {
+        		game.setScreen(new GameScreen(game));
+        	}
+//        	 else if (settingsBtn.checkTapped(touchPosition)) {
+//         	} else if (creditsBtn.checkTapped(touchPosition)) {
+//         	}
         }
     }
     
@@ -44,13 +61,16 @@ public class MainMenuScreen extends Screen {
         g.drawPixmap(Assets.mainMenuLogo, ((g.getWidth() / 2) - (Assets.mainMenuLogo.getWidth() / 2)), 30);
         
         // Draw Play Button
-        g.drawPixmap(Assets.playBtn, (g.getWidth() / 2 - Assets.playBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 3) - Assets.playBtn.getHeight() / 2));
+//        g.drawPixmap(Assets.playBtn, (g.getWidth() / 2 - Assets.playBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 3) - Assets.playBtn.getHeight() / 2));
+        playBtn.present(g);
         
         // Draw Settings Button
-        g.drawPixmap(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 5) - Assets.settingsBtn.getHeight() / 2));
+//        g.drawPixmap(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 5) - Assets.settingsBtn.getHeight() / 2));
+//        settingsBtn.present(g);
         
         // Draw Credits Button
-        g.drawPixmap(Assets.creditsBtn, (g.getWidth() / 2 - Assets.creditsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 7) - Assets.creditsBtn.getHeight() / 2));
+//        g.drawPixmap(Assets.creditsBtn, (g.getWidth() / 2 - Assets.creditsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 7) - Assets.creditsBtn.getHeight() / 2));
+//        creditsBtn.present(g);
     }
 
     @Override
