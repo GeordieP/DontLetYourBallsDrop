@@ -24,6 +24,7 @@ public class GameScreen extends Screen {
     
     public GameScreen(Game game) {
         super(game);
+        state = GameState.Ready;
         // create ball, initially center horizontally, place near the top vertically
         ball = new Ball((game.getGraphics().getWidth() / 2 - Assets.ball.getWidth() / 2), game.getGraphics().getHeight() / 4);
         
@@ -41,11 +42,11 @@ public class GameScreen extends Screen {
      
         
         switch(state) {
-        case Running:
-        	updateRunning(touchEvents, deltaTime);
-        	break;
         case Ready:
         	updateReady(touchEvents);
+        	break;
+        case Running:
+        	updateRunning(touchEvents, deltaTime);
         	break;
         case Paused:
         	break;
@@ -84,6 +85,9 @@ public class GameScreen extends Screen {
             ball.present(g);
         	break;
         case Ready:
+            g.drawPixmap(Assets.background, 0, 0);
+            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
+            ball.present(g);
         	break;
         case Paused:
         	break;
