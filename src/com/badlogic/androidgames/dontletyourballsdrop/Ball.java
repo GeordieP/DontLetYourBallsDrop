@@ -30,6 +30,7 @@ public class Ball {
 	}
 	
 	public void bounce() {
+		
 		if(netForce.y > 0)
 //			netForce.y -= (netForce.y * moveSpeed);
 			netForce.y *= -1;
