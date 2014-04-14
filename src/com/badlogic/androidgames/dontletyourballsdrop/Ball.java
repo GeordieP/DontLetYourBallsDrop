@@ -33,7 +33,8 @@ public class Ball {
 		
 		if(netForce.y > 0)
 //			netForce.y -= (netForce.y * moveSpeed);
-			netForce.y *= -1;
+//			netForce.y *= -1;
+			netForce.y = (int)((netForce.y * -1)  + ((Math.random() * 3) + 1));
 	}
 	
 	public void update(float deltaTime) {
@@ -53,5 +54,9 @@ public class Ball {
 				(int)collisionRectangle.y,
 				(int)collisionRectangle.width,
 				(int)collisionRectangle.height, Color.RED);		
+	}
+	
+	public boolean isOOB(Graphics g) {
+		return (position.y > g.getHeight());
 	}
 }

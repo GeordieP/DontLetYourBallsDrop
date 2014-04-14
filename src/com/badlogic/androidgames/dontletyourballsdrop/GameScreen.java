@@ -22,6 +22,8 @@ public class GameScreen extends Screen {
     
     GameState state = GameState.Ready;
     Ball ball;
+    Ball ball2;
+
     public Rectangle ballHitRect;
 
     Vector2 touchPosition;
@@ -35,13 +37,14 @@ public class GameScreen extends Screen {
         dTime = 0.0f;
         
         // create ball, initially center horizontally, place near the top vertically
-        ball = new Ball((game.getGraphics().getWidth() / 2 - Assets.ball.getWidth() / 2), game.getGraphics().getHeight() / 4);
-        
+        ball = new Ball(game.getGraphics().getWidth() / 3, game.getGraphics().getHeight() / 4);
+        ball2 = new Ball(game.getGraphics().getWidth() - game.getGraphics().getWidth() / 3, game.getGraphics().getHeight() / 4);
+
         ballHitRect = new Rectangle(
-        		(game.getGraphics().getWidth() / 2 - (game.getGraphics().getWidth() / 3) / 2),
-        		game.getGraphics().getHeight() - game.getGraphics().getHeight() / 4,
-        		game.getGraphics().getWidth() / 3,
-        		game.getGraphics().getWidth() / 3);
+                (0),
+                game.getGraphics().getHeight() - game.getGraphics().getHeight() / 4,
+                game.getGraphics().getWidth(),
+                game.getGraphics().getWidth() / 3);
         
         restartBtn = new GUIButton(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() - 20) - Assets.settingsBtn.getHeight() / 2));
         
@@ -71,7 +74,10 @@ public class GameScreen extends Screen {
     boolean canBounce = true;
     
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
-        
+        if (ball.isOOB(game.getGraphics()) || ball2.isOOB(game.getGraphics())) {   
+        }
+
+
     	if(touchEvents.size() > 0) { 
         	touchPosition = new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);
         	dTime += deltaTime;	// count seconds that the screen has been touched
@@ -84,6 +90,10 @@ public class GameScreen extends Screen {
         		ball.bounce();
         	}
         	
+            if (canBounce && ballHitRect.intersects((ball2.collisionRectangle))) {
+                ball2.bounce();
+            }
+
         	if (restartBtn.checkTapped(touchPosition)) {
         		Assets.click.play(1);
              	restartGame();
@@ -101,7 +111,8 @@ public class GameScreen extends Screen {
 //        }
         
         ball.update(deltaTime);
-        
+        ball2.update(deltaTime);
+               
         
     }
     
@@ -120,6 +131,7 @@ public class GameScreen extends Screen {
             g.drawPixmap(Assets.background, 0, 0);
             g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
             ball.present(g);
+            ball2.present(g);
             
             restartBtn.present(g);
         	break;
