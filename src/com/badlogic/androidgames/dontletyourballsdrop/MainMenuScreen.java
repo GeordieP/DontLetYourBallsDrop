@@ -34,9 +34,10 @@ public class MainMenuScreen extends Screen {
         	
         	// check if each button has been tapped
         	if (playBtn.checkTapped(touchPosition)) {
+        		Assets.click.play(1);
         		game.setScreen(new GameScreen(game));
          	} else if (creditsBtn.checkTapped(touchPosition)) {
-         		//System.out.println("Credits Button Pressed!");
+         		Assets.click.play(1);
          		game.setScreen(new Credits(game));
          	}
         }

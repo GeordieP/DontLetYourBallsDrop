@@ -45,12 +45,13 @@ public class GameScreen extends Screen {
         
         restartBtn = new GUIButton(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() - 20) - Assets.settingsBtn.getHeight() / 2));
         
+       //Assets.bgMusic.play();
     }
 
     @Override
     public void update(float deltaTime) {
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
-//        game.getInput().getKeyEvents();
+//       game.getInput().getKeyEvents();
      
         
         switch(state) {
@@ -79,14 +80,16 @@ public class GameScreen extends Screen {
         	}
         	
         	if (canBounce && ballHitRect.intersects((ball.collisionRectangle))) {
+        		Assets.ballhit.play(1);
         		ball.bounce();
         	}
-        }
+        	
+        	if (restartBtn.checkTapped(touchPosition)) {
+        		Assets.click.play(1);
+             	restartGame();
+            }
+    	}
         
-        if (restartBtn.checkTapped(touchPosition)) {
-        	restartGame();
-        }
-
         if (touchEvents.size() == 0) {
         	canBounce = true;
         	dTime = 0;
