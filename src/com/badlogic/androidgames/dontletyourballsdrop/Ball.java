@@ -34,7 +34,7 @@ public class Ball {
 		if(netForce.y > 0)
 //			netForce.y -= (netForce.y * moveSpeed);
 //			netForce.y *= -1;
-			netForce.y = (int)((netForce.y * -1)  + ((Math.random() * 3) + 1));
+			netForce.y = (int)((netForce.y * -1)  + ((Math.random() * 10) + 1));
 	}
 	
 	public void update(float deltaTime) {

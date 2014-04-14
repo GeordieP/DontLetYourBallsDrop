@@ -31,6 +31,8 @@ public class LoadingScreen extends Screen {
         
         /* In-Game */
         Assets.background = g.newPixmap("background.png", PixmapFormat.RGB565);
+        Assets.background.setSize(g.getWidth(), g.getHeight());
+        
         Assets.ball = g.newPixmap("ball.png",  PixmapFormat.RGB565);
 
         Assets.click = game.getAudio().newSound("click.ogg");
