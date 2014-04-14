@@ -21,10 +21,11 @@ public class GameScreen extends Screen {
     GameState state = GameState.Ready;
     Ball ball;
     public Rectangle ballHitRect;
+    float dTime = 0.0f;		// used for counting time when necessary
     
     public GameScreen(Game game) {
         super(game);
-        state = GameState.Ready;
+        game.getInput().clearTouches();
         // create ball, initially center horizontally, place near the top vertically
         ball = new Ball((game.getGraphics().getWidth() / 2 - Assets.ball.getWidth() / 2), game.getGraphics().getHeight() / 4);
         
@@ -38,12 +39,12 @@ public class GameScreen extends Screen {
     @Override
     public void update(float deltaTime) {
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
-        game.getInput().getKeyEvents();
+//        game.getInput().getKeyEvents();
      
         
         switch(state) {
         case Ready:
-        	updateReady(touchEvents);
+        	updateReady(touchEvents, deltaTime);
         	break;
         case Running:
         	updateRunning(touchEvents, deltaTime);
@@ -53,23 +54,37 @@ public class GameScreen extends Screen {
         case GameOver:
         	break;
         }
-        
     }
     
+    boolean canBounce = true;
+    
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
-        if(touchEvents.size() > 0) { 
-        	Vector2 touchPosition = new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);
+        if (touchEvents.size() == 0) {
+        	canBounce = true;
+        	dTime = 0;
         }
         
-        if ((touchEvents.size() > 0) && (ballHitRect.intersects(ball.collisionRectangle))) {
-        	ball.bounce();
+    	if(touchEvents.size() > 0) { 
+        	Vector2 touchPosition = new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);
+        	dTime += deltaTime;	// count seconds that the screen has been touched
+        	if (dTime > 0.1) {
+        		canBounce = false;
+        	}
+        	
+        	if (canBounce && ballHitRect.intersects((ball.collisionRectangle))) {
+        		ball.bounce();
+        	}
         }
+        
+//        if ((dTime += deltaTime) > 5 && (touchEvents.size() > 0) && (ballHitRect.intersects(ball.collisionRectangle))) {
+//        	ball.bounce();
+//        }
         
         ball.update(deltaTime);
     }
     
-    private void updateReady(List<TouchEvent> touchEvents) {
-        if(touchEvents.size() > 0)
+    private void updateReady(List<TouchEvent> touchEvents, float deltaTime) {
+        if((dTime += deltaTime) > 0.7f && touchEvents.size() > 0)		// only continue if dTime is > 0.7 seconds
             state = GameState.Running;
     }
     
