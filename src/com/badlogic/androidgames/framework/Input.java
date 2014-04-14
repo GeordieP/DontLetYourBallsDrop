@@ -63,6 +63,8 @@ public interface Input {
     public float getAccelY();
 
     public float getAccelZ();
+    
+    public void clearTouches();
 
     public List<KeyEvent> getKeyEvents();
 

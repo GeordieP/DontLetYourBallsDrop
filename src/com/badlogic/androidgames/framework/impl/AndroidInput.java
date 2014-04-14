@@ -58,6 +58,11 @@ public class AndroidInput implements Input {
     }
 
     @Override
+    public void clearTouches() {
+    	touchHandler.clearTouches();
+    }
+    
+    @Override
     public List<TouchEvent> getTouchEvents() {
         return touchHandler.getTouchEvents();
     }
