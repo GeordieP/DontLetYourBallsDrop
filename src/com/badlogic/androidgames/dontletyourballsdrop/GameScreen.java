@@ -7,10 +7,12 @@ import android.graphics.Color;
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Graphics;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
-import com.badlogic.androidgames.framework.Pixmap;
 import com.badlogic.androidgames.framework.Screen;
 
 public class GameScreen extends Screen {
+	
+	private GUIButton restartBtn;
+	
     enum GameState {
         Ready,
         Running,
@@ -21,9 +23,11 @@ public class GameScreen extends Screen {
     GameState state = GameState.Ready;
     Ball ball;
     public Rectangle ballHitRect;
-    
+    Vector2 touchPosition;
+
     public GameScreen(Game game) {
         super(game);
+        Graphics g = game.getGraphics();
         state = GameState.Ready;
         // create ball, initially center horizontally, place near the top vertically
         ball = new Ball((game.getGraphics().getWidth() / 2 - Assets.ball.getWidth() / 2), game.getGraphics().getHeight() / 4);
@@ -33,6 +37,9 @@ public class GameScreen extends Screen {
         		game.getGraphics().getHeight() - game.getGraphics().getHeight() / 4,
         		game.getGraphics().getWidth() / 3,
         		game.getGraphics().getWidth() / 3);
+        
+        restartBtn = new GUIButton(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() - 20) - Assets.settingsBtn.getHeight() / 2));
+        
     }
 
     @Override
@@ -58,7 +65,11 @@ public class GameScreen extends Screen {
     
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
         if(touchEvents.size() > 0) { 
-        	Vector2 touchPosition = new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);
+        	touchPosition = new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);
+        }
+        
+        if (restartBtn.checkTapped(touchPosition)) {
+        	restartGame();
         }
         
         if ((touchEvents.size() > 0) && (ballHitRect.intersects(ball.collisionRectangle))) {
@@ -66,6 +77,8 @@ public class GameScreen extends Screen {
         }
         
         ball.update(deltaTime);
+        
+        
     }
     
     private void updateReady(List<TouchEvent> touchEvents) {
@@ -83,6 +96,8 @@ public class GameScreen extends Screen {
             g.drawPixmap(Assets.background, 0, 0);
             g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
             ball.present(g);
+            
+            restartBtn.present(g);
         	break;
         case Ready:
             g.drawPixmap(Assets.background, 0, 0);
@@ -95,6 +110,10 @@ public class GameScreen extends Screen {
         	break;
         }
  
+    }
+    
+    public void restartGame() {
+    	game.setScreen(new MainMenuScreen(game));
     }
     
     @Override

@@ -36,10 +36,11 @@ public class MainMenuScreen extends Screen {
         	if (playBtn.checkTapped(touchPosition)) {
         		System.out.println("Play Button Pressed!");
         		game.setScreen(new GameScreen(game));
-        	} else if (settingsBtn.checkTapped(touchPosition)) {
-        		System.out.println("Settings Button Pressed!");
+//        	} else if (settingsBtn.checkTapped(touchPosition)) {
+//        		System.out.println("Settings Button Pressed!");
          	} else if (creditsBtn.checkTapped(touchPosition)) {
-         		System.out.println("Credits Button Pressed!");
+         		//System.out.println("Credits Button Pressed!");
+         		game.setScreen(new Credits(game));
          	}
         }
     }
@@ -69,7 +70,7 @@ public class MainMenuScreen extends Screen {
         
         // Draw Settings Button
      //   g.drawPixmap(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 5) - Assets.settingsBtn.getHeight() / 2));
-        settingsBtn.present(g);
+      //  settingsBtn.present(g);
         
         // Draw Credits Button
        // g.drawPixmap(Assets.creditsBtn, (g.getWidth() / 2 - Assets.creditsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() / 7) - Assets.creditsBtn.getHeight() / 2));
