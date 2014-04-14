@@ -21,6 +21,10 @@ public class Assets {
     
     public static Sound click;
     public static Sound ballhit;
+
+    /* In-Credits */
+    public static Pixmap creditNames;
     
   //  public static Music bgMusic;
+//    public static Pixmap logo;
 }

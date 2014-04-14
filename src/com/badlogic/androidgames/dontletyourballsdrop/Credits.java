@@ -21,6 +21,8 @@ public class Credits extends Screen {
 	public void present(float deltaTime) {
 		Graphics g = game.getGraphics();
 		g.drawPixmap(Assets.mainMenuBackground, 0, 0, g.getWidth(), g.getHeight());
+		g.drawPixmap(Assets.creditNames, 0, 0, g.getWidth(), g.getHeight());
+		
 	}
 
 	@Override

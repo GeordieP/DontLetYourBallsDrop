@@ -37,6 +37,9 @@ public class LoadingScreen extends Screen {
         Assets.ballhit = game.getAudio().newSound("ballhit.ogg");
         //Assets.bgMusic = game.getAudio().newMusic("countysidebg.ogg");
         
+        /* In-Credits */
+        Assets.creditNames = g.newPixmap("Credits.png", PixmapFormat.RGB565);
+        
         game.setScreen(new MainMenuScreen(game));
     }
 
