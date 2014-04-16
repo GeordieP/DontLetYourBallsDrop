@@ -28,6 +28,7 @@ public class GameScreen extends Screen {
 
     Vector2 touchPosition;
     float dTime = 0.0f;
+    int score = 0;
 
     public GameScreen(Game game) {
         super(game);
@@ -67,14 +68,16 @@ public class GameScreen extends Screen {
         case Paused:
         	break;
         case GameOver:
+        	updateGameOver(touchEvents, deltaTime);
         	break;
         }
     }
     
-    boolean canBounce = true;
+	boolean canBounce = true;
     
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
-        if (ball.isOOB(game.getGraphics()) || ball2.isOOB(game.getGraphics())) {   
+        if (ball.isOOB(game.getGraphics()) || ball2.isOOB(game.getGraphics())) { 
+        	 state = GameState.GameOver;
         }
 
 
@@ -88,10 +91,13 @@ public class GameScreen extends Screen {
         	if (canBounce && ballHitRect.intersects((ball.collisionRectangle))) {
         		Assets.ballhit.play(1);
         		ball.bounce();
+        		score++;
         	}
         	
             if (canBounce && ballHitRect.intersects((ball2.collisionRectangle))) {
+            	Assets.ballhit.play(1);
                 ball2.bounce();
+                score++;
             }
 
         	if (restartBtn.checkTapped(touchPosition)) {
@@ -121,6 +127,11 @@ public class GameScreen extends Screen {
             state = GameState.Running;
     }
     
+    private void updateGameOver(List<TouchEvent> touchEvents, float deltaTime) {
+   	 if((dTime += deltaTime) > 0.7f && touchEvents.size() > 0)		// only continue if dTime is > 0.7 seconds
+   		game.setScreen(new MainMenuScreen(game));
+	}
+    
     @Override
     public void present(float deltaTime) {
         Graphics g = game.getGraphics();
@@ -146,6 +157,8 @@ public class GameScreen extends Screen {
         case Paused:
         	break;
         case GameOver:
+        	g.drawPixmap(Assets.background, 0, 0);
+        
         	break;
         }
  
