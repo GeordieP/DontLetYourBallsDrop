@@ -14,9 +14,11 @@ public class Assets {
     public static Pixmap playBtn;
     public static Pixmap settingsBtn;
     public static Pixmap creditsBtn;
+    public static Pixmap restartBtn;
     
     /* In-Game */    
     public static Pixmap background;
+    public static Pixmap background1;
     public static Pixmap ball;
     
     public static Sound click;

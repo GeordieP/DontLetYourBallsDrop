@@ -28,10 +28,15 @@ public class LoadingScreen extends Screen {
         Assets.creditsBtn = g.newPixmap("creditsBtn.png", PixmapFormat.RGB565);
         Assets.creditsBtn.setSize(relativeToScreenW(Assets.creditsBtn.getWidth()), relativeToScreenH(Assets.creditsBtn.getHeight()));
         
+        Assets.restartBtn = g.newPixmap("restartBtn.png", PixmapFormat.RGB565);
+        Assets.restartBtn.setSize(relativeToScreenW(Assets.restartBtn.getWidth()), relativeToScreenH(Assets.creditsBtn.getHeight()));
         
         /* In-Game */
         Assets.background = g.newPixmap("background.png", PixmapFormat.RGB565);
         Assets.background.setSize(g.getWidth(), g.getHeight());
+        
+        //Assets.background1 = g.newPixmap("background1.png", PixmapFormat.RGB565);
+        //Assets.background1.setSize(g.getWidth(), g.getHeight());
         
         Assets.ball = g.newPixmap("ball.png",  PixmapFormat.RGB565);
 

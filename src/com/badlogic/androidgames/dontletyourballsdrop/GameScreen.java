@@ -47,7 +47,7 @@ public class GameScreen extends Screen {
                 game.getGraphics().getWidth(),
                 game.getGraphics().getWidth() / 3);
         
-        restartBtn = new GUIButton(Assets.settingsBtn, (g.getWidth() / 2 - Assets.settingsBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() - 20) - Assets.settingsBtn.getHeight() / 2));
+        restartBtn = new GUIButton(Assets.restartBtn, (g.getWidth() / 2 - Assets.restartBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() - 20) - Assets.settingsBtn.getHeight() / 2));
         
        //Assets.bgMusic.play();
     }
@@ -143,7 +143,7 @@ public class GameScreen extends Screen {
 //            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
             ball.present(g);
             ball2.present(g);
-            
+            g.drawText("Helvetica", "Score: " + score, 20, 120, 100);
             restartBtn.present(g);
         	break;
         case Ready:
@@ -158,7 +158,8 @@ public class GameScreen extends Screen {
         	break;
         case GameOver:
         	g.drawPixmap(Assets.background, 0, 0);
-        
+        	g.drawText("Helvetica", "Game Over!", 20, 110, 50);
+        	g.drawText("Helvetica", "Score: " + score, 20, 120, 100);
         	break;
         }
  
