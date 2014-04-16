@@ -129,7 +129,7 @@ public class GameScreen extends Screen {
         switch(state) {
         case Running:
             g.drawPixmap(Assets.background, 0, 0);
-            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
+//            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
             ball.present(g);
             ball2.present(g);
             
@@ -137,8 +137,11 @@ public class GameScreen extends Screen {
         	break;
         case Ready:
             g.drawPixmap(Assets.background, 0, 0);
-            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
+//            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
             ball.present(g);
+            ball2.present(g);
+            
+            g.drawText("Helvetica", "Tap to begin", 20, 100, 100);
         	break;
         case Paused:
         	break;

@@ -3,6 +3,7 @@ package com.badlogic.androidgames.framework.impl;
 import java.io.IOException;
 import java.io.InputStream;
 
+import android.app.Activity;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -12,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 import com.badlogic.androidgames.framework.Graphics;
 import com.badlogic.androidgames.framework.Pixmap;
@@ -137,6 +139,14 @@ public class AndroidGraphics implements Graphics {
         canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, null);
     }
 
+    @Override
+    public void drawText(String fontName, String text, int size, int x, int y) {
+    	Typeface tf = Typeface.create(fontName, Typeface.NORMAL);
+    	paint.setTextSize(size);
+    	paint.setTypeface(tf);
+    	canvas.drawText(text, x, y, paint);
+    }
+    
     @Override
     public int getWidth() {
         return frameBuffer.getWidth();
