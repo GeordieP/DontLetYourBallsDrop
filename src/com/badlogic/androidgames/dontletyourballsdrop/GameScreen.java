@@ -2,8 +2,13 @@ package com.badlogic.androidgames.dontletyourballsdrop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.graphics.Color;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenManager;
+import aurelienribon.tweenengine.equations.Bounce;
+import aurelienribon.tweenengine.equations.Quad;
 
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Graphics;
@@ -24,13 +29,14 @@ public class GameScreen extends Screen {
     GameState state = GameState.Ready;
     Ball ball;
     Ball ball2;
+    Random random;
 
     public Rectangle ballHitRect;
 
     Vector2 touchPosition;
     float dTime = 0.0f;
     int score = 0;
-    
+    TweenManager manager;
     Piston leftPiston, rightPiston;
     
     public GameScreen(Game game) {
@@ -53,7 +59,6 @@ public class GameScreen extends Screen {
         rightPiston = new Piston(ball2.position.x, game.getGraphics().getHeight() - 30, Assets.ball.getWidth(), 40, game.getGraphics().getWidth(), game.getGraphics().getHeight());
         
         restartBtn = new GUIButton(Assets.restartBtn, (g.getWidth() / 2 - Assets.restartBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() - 20) - Assets.settingsBtn.getHeight() / 2));
-        
        //Assets.bgMusic.play();
     }
 
@@ -97,11 +102,11 @@ public class GameScreen extends Screen {
         		
         		for (int i = 0; i < touchEvents.size(); i++) {
     				if (touchEvents.get(i).x < game.getGraphics().getWidth() / 2) {
+                		canBounce = false;
         				Assets.ballhit.play(1);
                 		ball.bounce((int)ballHitRect.y);
                 		score++;
                 		leftPiston.spring((int)ball.position.y);
-                		canBounce = false;
                 		break;
         			}
         		}
@@ -111,11 +116,11 @@ public class GameScreen extends Screen {
             	
             	for (int i = 0; i < touchEvents.size(); i++) {
         			if (touchEvents.get(i).x > game.getGraphics().getWidth() / 2) {
+            			canBounce = false;
             			Assets.ballhit.play(1);
             			ball2.bounce((int)ballHitRect.y);
             			score++;
             			rightPiston.spring((int)ball2.position.y);
-            			canBounce = false;
             		}
             	}
             }

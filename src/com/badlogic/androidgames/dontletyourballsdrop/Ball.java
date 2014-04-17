@@ -1,19 +1,24 @@
 package com.badlogic.androidgames.dontletyourballsdrop;
 
+import java.util.Random;
+
 import android.graphics.Color;
 
 import com.badlogic.androidgames.framework.Graphics;
+import com.badlogic.androidgames.framework.Pixmap;
 
 public class Ball {
 
-	public Vector2 position, gravity, vi, vf, netForce;
 	private float moveSpeed = 2.0f;
+	private Random random;
+	public Vector2 position, gravity, vi, vf, netForce;
 	public float mass;
 	public Rectangle collisionRectangle;
+	public Pixmap sprite = Assets.ball;
+	
 	
 	public Ball(float _x, float _y) {
 		position = new Vector2(_x, _y);
-		
 		gravity = new Vector2(0.0f, 9.8f);
 		netForce = new Vector2(0.0f, 0.0f);
 		vi = new Vector2(0.0f, 0.0f);
@@ -22,8 +27,8 @@ public class Ball {
 		mass = 100.0f;
 		
 		collisionRectangle = new Rectangle(
-				(position.x + Assets.ball.getWidth() / 2),
-				(position.y + Assets.ball.getHeight() / 2),
+				(position.x + sprite.getWidth() / 2),
+				(position.y + sprite.getHeight() / 2),
 				Assets.ball.getWidth() / 4,
 				Assets.ball.getHeight() / 4);
 	}
@@ -32,10 +37,6 @@ public class Ball {
 		
 		if(netForce.y > 0)
 			netForce.y -= (netForce.y * moveSpeed);
-//			netForce.y *= -1;
-//			netForce.y = (int)((netForce.y * -1)  + ((Math.random() * 10) + 1));
-//			netForce.y = (int)((netForce.y * -0.8) + ((position.y - hitRectY) * 2));
-		
 			netForce.y = -50500 + ((position.y - hitRectY) * 2) + (int)(Math.random() * (moveSpeed - (-moveSpeed) + 1)) + (-moveSpeed);
 //			android.util.Log.w("DLYBD", "NetForce: " + netForce.y);
 	}
@@ -51,7 +52,7 @@ public class Ball {
 	}
 	
 	public void present(Graphics g) {
-		g.drawPixmap(Assets.ball, (int)position.x, (int)position.y);
+		g.drawPixmap(sprite, (int)position.x, (int)position.y);
 //		g.drawRect(
 //				(int)collisionRectangle.x,
 //				(int)collisionRectangle.y,
