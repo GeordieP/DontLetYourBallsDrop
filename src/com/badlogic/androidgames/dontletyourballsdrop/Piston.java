@@ -23,12 +23,9 @@ public class Piston extends Rectangle {
 		// set the Y position of the piston to the ball's Y
 		// set the height of the piston to reach the bottom of the screen
 		// begin retracting (hasSprung)
-		if (canSpring) {
-			this.y = ballY;
-			this.height = (screenDimensions.y - ballY);
-			hasSprung = true;
-			canSpring = false;
-		}
+		this.y = ballY;
+		this.height = (screenDimensions.y - ballY);
+		hasSprung = true;
 	}
 	
 	boolean canSpring, hasSprung;
@@ -40,7 +37,6 @@ public class Piston extends Rectangle {
 				this.y += 50 * deltaTime;
 			} else {
 				hasSprung = false;
-				canSpring = true;
 			}
 		}
 	}

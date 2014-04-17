@@ -52,11 +52,11 @@ public class Ball {
 	
 	public void present(Graphics g) {
 		g.drawPixmap(Assets.ball, (int)position.x, (int)position.y);
-		g.drawRect(
-				(int)collisionRectangle.x,
-				(int)collisionRectangle.y,
-				(int)collisionRectangle.width,
-				(int)collisionRectangle.height, Color.RED);		
+//		g.drawRect(
+//				(int)collisionRectangle.x,
+//				(int)collisionRectangle.y,
+//				(int)collisionRectangle.width,
+//				(int)collisionRectangle.height, Color.RED);		
 	}
 	
 	public boolean isOOB(Graphics g) {
