@@ -49,8 +49,8 @@ public class GameScreen extends Screen {
                 game.getGraphics().getWidth(),
                 game.getGraphics().getWidth() / 3);
         
-        leftPiston = new Piston(ball.position.x, game.getGraphics().getHeight() - 30, Assets.ball.getWidth(), 30, game.getGraphics().getWidth(), game.getGraphics().getHeight());
-        rightPiston = new Piston(ball2.position.x, game.getGraphics().getHeight() - 30, Assets.ball.getWidth(), 30, game.getGraphics().getWidth(), game.getGraphics().getHeight());
+        leftPiston = new Piston(ball.position.x, game.getGraphics().getHeight() - 30, Assets.ball.getWidth(), 40, game.getGraphics().getWidth(), game.getGraphics().getHeight());
+        rightPiston = new Piston(ball2.position.x, game.getGraphics().getHeight() - 30, Assets.ball.getWidth(), 40, game.getGraphics().getWidth(), game.getGraphics().getHeight());
         
         restartBtn = new GUIButton(Assets.restartBtn, (g.getWidth() / 2 - Assets.restartBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() - 20) - Assets.settingsBtn.getHeight() / 2));
         
