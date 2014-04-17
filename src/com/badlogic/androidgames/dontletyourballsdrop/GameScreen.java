@@ -31,6 +31,8 @@ public class GameScreen extends Screen {
     float dTime = 0.0f;
     int score = 0;
     
+    Piston leftPiston, rightPiston;
+    
     public GameScreen(Game game) {
         super(game);
         game.getInput().clearTouches();
@@ -46,6 +48,9 @@ public class GameScreen extends Screen {
                 game.getGraphics().getHeight() - game.getGraphics().getHeight() / 4,
                 game.getGraphics().getWidth(),
                 game.getGraphics().getWidth() / 3);
+        
+        leftPiston = new Piston(ball.position.x, game.getGraphics().getHeight() - 30, Assets.ball.getWidth(), 30, game.getGraphics().getWidth(), game.getGraphics().getHeight());
+        rightPiston = new Piston(ball2.position.x, game.getGraphics().getHeight() - 30, Assets.ball.getWidth(), 30, game.getGraphics().getWidth(), game.getGraphics().getHeight());
         
         restartBtn = new GUIButton(Assets.restartBtn, (g.getWidth() / 2 - Assets.restartBtn.getWidth() / 2), (g.getHeight() - (g.getHeight() - 20) - Assets.settingsBtn.getHeight() / 2));
         
@@ -95,6 +100,7 @@ public class GameScreen extends Screen {
         				Assets.ballhit.play(1);
                 		ball.bounce((int)ballHitRect.y);
                 		score++;
+                		leftPiston.spring((int)ball.position.y);
                 		canBounce = false;
                 		break;
         			}
@@ -108,6 +114,7 @@ public class GameScreen extends Screen {
             			Assets.ballhit.play(1);
             			ball2.bounce((int)ballHitRect.y);
             			score++;
+            			rightPiston.spring((int)ball2.position.y);
             			canBounce = false;
             		}
             	}
@@ -123,11 +130,13 @@ public class GameScreen extends Screen {
         if (touchEvents.size() == 0) {
         	canBounce = true;
         	dTime = 0;
-        	
         }
         
         ball.update(deltaTime);
         ball2.update(deltaTime);
+        
+        leftPiston.update(deltaTime);
+        rightPiston.update(deltaTime);
     }
     
     private void updateReady(List<TouchEvent> touchEvents, float deltaTime) {
@@ -148,18 +157,24 @@ public class GameScreen extends Screen {
         switch(state) {
         case Running:
             g.drawPixmap(Assets.background, 0, 0);
-//            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
+            
             ball.present(g);
             ball2.present(g);
+            
+            leftPiston.present(g);
+            rightPiston.present(g);
+            
             g.drawText("Helvetica", "Score: " + score, 20, 15, 15);
             restartBtn.present(g);
         	break;
         case Ready:
             g.drawPixmap(Assets.background, 0, 0);
-//            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
+
+            leftPiston.present(g);
+            rightPiston.present(g);
+            
             ball.present(g);
             ball2.present(g);
-            
             g.drawText("Helvetica", "Tap to begin", 20, 100, 100);
         	break;
         case Paused:

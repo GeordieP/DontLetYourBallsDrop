@@ -38,10 +38,8 @@ public class LoadingScreen extends Screen {
         Assets.background1 = g.newPixmap("background1.png", PixmapFormat.RGB565);
         Assets.background1.setSize(g.getWidth(), g.getHeight());
         
-//        Assets.background1 = g.newPixmap("background1.png", PixmapFormat.RGB565);
-//        Assets.background1.setSize(g.getWidth(), g.getHeight());
-        
         Assets.ball = g.newPixmap("ball.png",  PixmapFormat.RGB565);
+        Assets.ball.setSize(relativeToScreenW(Assets.ball.getWidth()), relativeToScreenH(Assets.ball.getWidth()));		// use getWidth here twice so the ball image ends up as a square rather than rectangle
 
         Assets.click = game.getAudio().newSound("click.ogg");
         Assets.ballhit = game.getAudio().newSound("ballhit.ogg");

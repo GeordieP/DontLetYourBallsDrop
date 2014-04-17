@@ -11,7 +11,8 @@ import com.badlogic.androidgames.framework.Screen;
 
 public class MainMenuScreen extends Screen {
 	
-	private GUIButton playBtn, settingsBtn, creditsBtn;	
+	private GUIButton playBtn, settingsBtn, creditsBtn;
+	private float dTime = 0.0f;
 	
     public MainMenuScreen(Game game) {
         super(game);
@@ -28,7 +29,7 @@ public class MainMenuScreen extends Screen {
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         game.getInput().getKeyEvents();
         
-        if (touchEvents.size() > 0) {
+        if((dTime += deltaTime) > 0.7f && touchEvents.size() > 0) {		// only allow touches after 0.7 seconds
 //            game.setScreen(new GameScreen(game));
         	Vector2 touchPosition = new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);
         	
