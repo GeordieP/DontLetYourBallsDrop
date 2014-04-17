@@ -1,5 +1,6 @@
 package com.badlogic.androidgames.dontletyourballsdrop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
@@ -29,7 +30,7 @@ public class GameScreen extends Screen {
     Vector2 touchPosition;
     float dTime = 0.0f;
     int score = 0;
-
+    
     public GameScreen(Game game) {
         super(game);
         game.getInput().clearTouches();
@@ -37,9 +38,8 @@ public class GameScreen extends Screen {
         state = GameState.Ready;
         dTime = 0.0f;
         
-        // create ball, initially center horizontally, place near the top vertically
-        ball = new Ball(game.getGraphics().getWidth() / 3, game.getGraphics().getHeight() / 4);
-        ball2 = new Ball(game.getGraphics().getWidth() - game.getGraphics().getWidth() / 3, game.getGraphics().getHeight() / 4);
+        ball = new Ball(game.getGraphics().getWidth() / 3 - Assets.ball.getWidth(), (game.getGraphics().getHeight() / 4) + (int)(Math.random() * (120 - (-120) + 1)) + (-120));
+        ball2 = new Ball(game.getGraphics().getWidth() - game.getGraphics().getWidth() / 3, (game.getGraphics().getHeight() / 4) + (int)(Math.random() * (120 - (-120) + 1)) + (-120));
 
         ballHitRect = new Rectangle(
                 (0),
@@ -74,30 +74,43 @@ public class GameScreen extends Screen {
     }
     
 	boolean canBounce = true;
-    
+	
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
         if (ball.isOOB(game.getGraphics()) || ball2.isOOB(game.getGraphics())) { 
         	 state = GameState.GameOver;
         }
-
-
-    	if(touchEvents.size() > 0) { 
-        	touchPosition = new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);
+        
+        
+    	if(touchEvents.size() > 0) {
+    		Vector2 touchPosition= new Vector2(touchEvents.get(0).x, touchEvents.get(0).y);		// position of the first touch
         	dTime += deltaTime;	// count seconds that the screen has been touched
         	if (dTime > 0.1) {
         		canBounce = false;
         	}
         	
         	if (canBounce && ballHitRect.intersects((ball.collisionRectangle))) {
-        		Assets.ballhit.play(1);
-        		ball.bounce();
-        		score++;
+        		
+        		for (int i = 0; i < touchEvents.size(); i++) {
+    				if (touchEvents.get(i).x < game.getGraphics().getWidth() / 2) {
+        				Assets.ballhit.play(1);
+                		ball.bounce((int)ballHitRect.y);
+                		score++;
+                		canBounce = false;
+                		break;
+        			}
+        		}
         	}
         	
             if (canBounce && ballHitRect.intersects((ball2.collisionRectangle))) {
-            	Assets.ballhit.play(1);
-                ball2.bounce();
-                score++;
+            	
+            	for (int i = 0; i < touchEvents.size(); i++) {
+        			if (touchEvents.get(i).x > game.getGraphics().getWidth() / 2) {
+            			Assets.ballhit.play(1);
+            			ball2.bounce((int)ballHitRect.y);
+            			score++;
+            			canBounce = false;
+            		}
+            	}
             }
 
         	if (restartBtn.checkTapped(touchPosition)) {
@@ -106,20 +119,15 @@ public class GameScreen extends Screen {
             }
     	}
         
+    	// an issue with doing it this way -- if the player taps one ball, taps the other, and taps the first again without releasing, they won't hit  
         if (touchEvents.size() == 0) {
         	canBounce = true;
         	dTime = 0;
         	
         }
         
-//        if ((dTime += deltaTime) > 5 && (touchEvents.size() > 0) && (ballHitRect.intersects(ball.collisionRectangle))) {
-//        	ball.bounce();
-//        }
-        
         ball.update(deltaTime);
         ball2.update(deltaTime);
-               
-        
     }
     
     private void updateReady(List<TouchEvent> touchEvents, float deltaTime) {
@@ -143,7 +151,7 @@ public class GameScreen extends Screen {
 //            g.drawRect((int)ballHitRect.x, (int)ballHitRect.y, (int)ballHitRect.width, (int)ballHitRect.height, Color.BLUE);
             ball.present(g);
             ball2.present(g);
-            g.drawText("Helvetica", "Score: " + score, 20, 120, 100);
+            g.drawText("Helvetica", "Score: " + score, 20, 15, 15);
             restartBtn.present(g);
         	break;
         case Ready:
@@ -157,9 +165,10 @@ public class GameScreen extends Screen {
         case Paused:
         	break;
         case GameOver:
-        	g.drawPixmap(Assets.background, 0, 0);
+        	g.drawPixmap(Assets.background1, 0, 0);
         	g.drawText("Helvetica", "Game Over!", 20, 110, 50);
         	g.drawText("Helvetica", "Score: " + score, 20, 120, 100);
+        	g.drawText("Helvetica", "Tap to restart", 20, 120, 130);
         	break;
         }
  

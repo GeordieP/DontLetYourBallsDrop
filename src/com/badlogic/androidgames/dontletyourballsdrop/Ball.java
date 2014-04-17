@@ -10,7 +10,6 @@ public class Ball {
 	private float moveSpeed = 2.0f;
 	public float mass;
 	public Rectangle collisionRectangle;
-//	public TextureRegion ballRegion;
 	
 	public Ball(float _x, float _y) {
 		position = new Vector2(_x, _y);
@@ -29,12 +28,16 @@ public class Ball {
 				Assets.ball.getHeight() / 4);
 	}
 	
-	public void bounce() {
+	public void bounce(int hitRectY) {
 		
 		if(netForce.y > 0)
-//			netForce.y -= (netForce.y * moveSpeed);
+			netForce.y -= (netForce.y * moveSpeed);
 //			netForce.y *= -1;
-			netForce.y = (int)((netForce.y * -1)  + ((Math.random() * 10) + 1));
+//			netForce.y = (int)((netForce.y * -1)  + ((Math.random() * 10) + 1));
+//			netForce.y = (int)((netForce.y * -0.8) + ((position.y - hitRectY) * 2));
+		
+			netForce.y = -50500 + ((position.y - hitRectY) * 2) + (int)(Math.random() * (moveSpeed - (-moveSpeed) + 1)) + (-moveSpeed);
+//			android.util.Log.w("DLYBD", "NetForce: " + netForce.y);
 	}
 	
 	public void update(float deltaTime) {
